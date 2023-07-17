@@ -1,5 +1,6 @@
 import cv2
 import time
+from datetime import datetime
 from emailing import send_email
 
 video = cv2.VideoCapture(1)
@@ -10,6 +11,7 @@ status_list = []
 while True:
     status = 0
     check, frame = video.read()
+    now = datetime.now()
     grey_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     grey_frame_gau = cv2.GaussianBlur(grey_frame, (15, 15), 0)
     #cv2.imshow("My Video", grey_frame_gau)
@@ -38,6 +40,12 @@ while True:
     status_list = status_list[-2:]
     if status_list[0] == 1 and status_list[1] == 0:
         send_email()
+    cv2.putText(img=frame, text=now.strftime("%A"), org=(30, 80),
+                fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=3, color=(255, 255, 255),
+                thickness=2, lineType=cv2.LINE_AA)
+    cv2.putText(img=frame, text=now.strftime("%H:%M:%S"), org=(30, 140),
+                fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=3, color=(255, 0, 0),
+                thickness=2, lineType=cv2.LINE_AA)
     cv2.imshow("Video",frame)
     key = cv2.waitKey(1)
 
