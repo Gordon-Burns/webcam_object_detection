@@ -1,4 +1,4 @@
-import smtplib, ssl
+import smtplib
 import creds
 import imghdr
 from email.message import EmailMessage
@@ -20,7 +20,6 @@ def send_email(image_path):
     gmail = smtplib.SMTP("smtp.gmail.com", 587)
     gmail.ehlo()
     gmail.starttls()
-    gmail.login(username,password)
-    gmail.sendmail(username, receiver,message.as_string())
+    gmail.login(username, password)
+    gmail.sendmail(username, receiver, message.as_string())
     gmail.quit
-
