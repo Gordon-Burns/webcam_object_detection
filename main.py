@@ -1,4 +1,5 @@
 import glob
+import os
 import cv2
 import numpy
 import time
@@ -11,6 +12,14 @@ time.sleep(0.5)
 first_frame = None
 status_list = []
 count = 1
+
+
+def clean_folder():
+    images = glob.glob("images/*.png")
+    for image in images:
+        os.remove(image)
+
+
 while True:
     status = 0
     check, frame = video.read()
@@ -49,6 +58,7 @@ while True:
     status_list = status_list[-2:]
     if status_list[0] == 1 and status_list[1] == 0:
         send_email(image_with_object)
+        clean_folder()
     cv2.putText(img=frame, text=now.strftime("%A"), org=(30, 80),
                 fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=3, color=(255, 255, 255),
                 thickness=2, lineType=cv2.LINE_AA)
