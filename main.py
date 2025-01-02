@@ -73,7 +73,7 @@ while True:
                 fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=3, color=(255, 0, 0),
                 thickness=2, lineType=cv2.LINE_AA)
     cv2.imshow("Video", frame)
-    key = cv2.waitKey(1)
+    key = cv2.waitKey(10)
 
     if key == ord("q"):
         break
